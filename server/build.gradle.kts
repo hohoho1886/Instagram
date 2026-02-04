@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     application
 }
+val springCloudVersion by extra("2025.1.1")
 
 group = "org.ninh.instaclone"
 version = "1.0.0"
@@ -19,14 +20,15 @@ application {
 dependencies {
     implementation(projects.shared)
     implementation(libs.logback)
-    //implementation(libs.ktor.serverCore)
-    //implementation(libs.ktor.serverNetty)
-    //testImplementation(libs.ktor.serverTestHost)
+    implementation("org.springframework.cloud:spring-cloud-function-web")
+    implementation("org.springframework.cloud:spring-cloud-function-adapter-aws")
     testImplementation(libs.kotlin.testJunit)
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+    }
 }
