@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.springDependencyManagement)
     alias(libs.plugins.kotlin.spring)
     alias(libs.plugins.kotlin.serialization)
+    id("io.freefair.lombok") version "8.4"
+    id("org.jetbrains.kotlin.plugin.jpa") version "2.3.0"
     application
 }
 val springCloudVersion by extra("2025.1.1")
@@ -26,6 +28,13 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    //implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.postgresql:postgresql")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.mindrot:jbcrypt:0.4")
+
 }
 dependencyManagement {
     imports {
