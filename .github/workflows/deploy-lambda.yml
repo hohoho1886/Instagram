@@ -24,7 +24,7 @@ jobs:
 
       # Step 3: Build server module only
       - name: Build server module
-        run: ./server/gradlew clean build
+        run: ./gradlew :server:clean :server:build
 
       # Step 4: Deploy to Lambda
       - name: Deploy to AWS Lambda
