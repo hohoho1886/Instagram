@@ -22,6 +22,8 @@ jobs:
           distribution: temurin
           java-version: '21'
 
+      - name: Make Gradle wrapper executable
+        run: chmod +x gradlew
       # Step 3: Build server module only
       - name: Build server module
         run: ./gradlew :server:clean :server:build
