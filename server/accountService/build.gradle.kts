@@ -13,7 +13,7 @@ val springCloudVersion by extra("2025.1.1")
 group = "org.ninh.instaclone"
 version = "1.0.0"
 application {
-  mainClass.set("org.ninh.instaclone.ApplicationKt")
+  mainClass.set("org.ninh.instaclone.AccountServiceAppKt")
 
   val isDevelopment: Boolean = project.ext.has("development")
   applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
@@ -28,9 +28,7 @@ dependencies {
   implementation(kotlin("reflect"))
   implementation(kotlin("stdlib"))
   testImplementation("org.springframework.boot:spring-boot-starter-test")
-  implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
   implementation("org.springframework.boot:spring-boot-starter-validation")
-  // implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("org.postgresql:postgresql")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
