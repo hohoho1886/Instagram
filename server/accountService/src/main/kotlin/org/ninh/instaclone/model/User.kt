@@ -10,7 +10,7 @@ import java.util.UUID
 @Table(name = "users")
 data class User(
     @Id
-    @Column(name = "user_id", columnDefinition = "UUID")
+    @Column(name = "user_id", nullable = false, updatable = false, columnDefinition = "UUID")
     val userId: UUID = UUID.randomUUID(),
 
     @Column(nullable = false, unique = true)

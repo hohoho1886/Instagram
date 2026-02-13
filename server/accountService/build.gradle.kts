@@ -20,10 +20,8 @@ application {
 }
 
 dependencies {
-  implementation(projects.shared)
   implementation(libs.logback)
   implementation("org.springframework.cloud:spring-cloud-function-web")
-  implementation("org.springframework.cloud:spring-cloud-function-adapter-aws")
   testImplementation(libs.kotlin.testJunit)
   implementation(kotlin("reflect"))
   implementation(kotlin("stdlib"))
