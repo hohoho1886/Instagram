@@ -21,7 +21,6 @@ class PostConsumerFunction (
             val dto = mapper.readValue(pubSubJson, PostMessage::class.java)
             postConsumer.save(dto)
             "Message processed"
-            dto.toString()
         } catch (e: Exception){
             e.printStackTrace()
             throw RuntimeException("Processing failed")

@@ -7,7 +7,6 @@ import jakarta.persistence.Index
 import jakarta.persistence.Table
 import java.util.UUID
 import kotlin.time.Clock
-import kotlin.time.Instant
 
 @Entity
 @Table(
@@ -20,16 +19,16 @@ import kotlin.time.Instant
 data class Post(
     @Id
     @Column(name = "post_id", nullable = false, updatable = false, columnDefinition = "UUID")
-    val postId: UUID = UUID.randomUUID(),
+    val postId: UUID,
 
     @Column(name = "user_id", nullable = false)
     val userId: UUID,
 
     @Column(name = "created_at", nullable = false)
-    val createdAt: Instant = Clock.System.now(),
+    val createdAt: String = Clock.System.now().toString(),
 
     @Column(name = "media_url")
-    val mediaUrls: String? = null,
+    val mediaUrls: String,
 
     @Column(name = "likes_count")
     val likesCount: Long = 0,
