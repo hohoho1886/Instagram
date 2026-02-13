@@ -25,7 +25,7 @@ class PostConsumer(
             )
             postRepository.save(newPost)
         } catch (e: Exception) {
-            e.printStackTrace()
+            throw RuntimeException("Error saving post", e)
         }
     }
 }
