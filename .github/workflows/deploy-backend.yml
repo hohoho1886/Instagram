@@ -34,6 +34,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
       - name: Authenticate to Google Cloud (OIDC)
         uses: google-github-actions/auth@v1
         with:
@@ -47,7 +50,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build module
-        run: ./gradlew :${{ matrix.module }}:clean :${{ matrix.module }}:build
+        run: ./gradlew :server:${{ matrix.module }}:clean :server:${{ matrix.module }}:build
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2

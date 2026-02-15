@@ -33,7 +33,7 @@ plugins {
 }
 
 include(":composeApp")
-include(":server:accountService")
-include(":server:postConsumer")
-include(":server:contentService")
+include(":server:account-service")
+include(":server:post-consumer")
+include(":server:content-service")
 include(":shared")
