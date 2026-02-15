@@ -35,4 +35,5 @@ plugins {
 include(":composeApp")
 include(":server:accountService")
 include(":server:postConsumer")
+include(":server:contentService")
 include(":shared")

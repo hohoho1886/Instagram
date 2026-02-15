@@ -1,7 +1,7 @@
 package org.ninh.instaclone.service
 
 import jakarta.transaction.Transactional
-import org.ninh.instaclone.dto.PostMessage
+import org.ninh.instaclone.dto.UploadMessage
 import org.ninh.instaclone.repository.PostRepository
 import org.springframework.stereotype.Service
 import org.ninh.instaclone.model.Post
@@ -12,14 +12,12 @@ class PostConsumer(
     private val postRepository: PostRepository
 ) {
     @Transactional
-    fun save(postMessage: PostMessage){
+    fun save(uploadMessage: UploadMessage){
         try {
             val newPost = Post(
-                postId = UUID.fromString(postMessage.postId),
-                userId = UUID.fromString(postMessage.userId),
-                mediaUrls = postMessage.mediaUrls,
-                likesCount = postMessage.likesCount,
-                commentsCount = postMessage.commentsCount
+                postId = UUID.fromString(uploadMessage.postId),
+                userId = UUID.fromString(uploadMessage.userId),
+                mediaUrls = uploadMessage.mediaUrls
             )
             postRepository.save(newPost)
         } catch (e: Exception) {

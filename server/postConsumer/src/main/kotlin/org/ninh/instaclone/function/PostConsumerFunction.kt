@@ -1,7 +1,7 @@
 package org.ninh.instaclone.function
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import org.ninh.instaclone.dto.PostMessage
+import org.ninh.instaclone.dto.UploadMessage
 import org.ninh.instaclone.service.PostConsumer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -18,14 +18,13 @@ class PostConsumerFunction (
     fun consumePost(): Function<String, String> = Function { body ->
         try {
             val pubSubJson = decodePubSubMessage(body)
-            val dto = mapper.readValue(pubSubJson, PostMessage::class.java)
+            val dto = mapper.readValue(pubSubJson, UploadMessage::class.java)
             postConsumer.save(dto)
             "Message processed"
         } catch (e: Exception){
             e.printStackTrace()
-            throw RuntimeException("Processing failed")
+            throw RuntimeException("Processing failed: " + e.message)
         }
-
     }
 
     private fun decodePubSubMessage(body: String): String {
