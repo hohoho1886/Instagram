@@ -1,7 +1,7 @@
 *.iml
 .kotlin
 .gradle
-.env
+*.env
 **/build/
 xcuserdata
 !src/**/build/
@@ -18,4 +18,3 @@ captures
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 node_modules/
-service-account.json

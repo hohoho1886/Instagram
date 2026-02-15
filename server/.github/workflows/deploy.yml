@@ -1,0 +1,67 @@
+name: Deploy
+
+# Trigger workflow on push to main branch
+on:
+  push:
+    branches:
+      - main   # change if you use a different branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - module: account-service
+            service_account: default
+          - module: content-service
+            service_account: spring-pubsub-publisher@project-426cf434-d967-43ff-a23.iam.gserviceaccount.com
+          - module: post-consumer
+            service_account: default
+
+    env:
+      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      REGION: ${{ secrets.GCP_REGION }}
+      REPO_NAME: ${{ secrets.ARTIFACT_REPO }}
+      PROJECT_NUMBER: ${{ secrets.PROJECT_NUMBER }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Authenticate to Google Cloud (OIDC)
+        uses: google-github-actions/auth@v1
+        with:
+            workload_identity_provider: "projects/${{ env.PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-actions-pool/providers/github"
+            service_account: "ci-cd-deployer@${{ env.PROJECT_ID }}.iam.gserviceaccount.com"
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build module
+        run: ./gradlew :${{ matrix.module }}:clean :${{ matrix.module }}:build
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+
+      - name: Build Docker image
+        run: docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ matrix.module }}:latest ../../${{ matrix.module }}
+
+      - name: Push Docker image
+        run: docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ matrix.module }}:latest
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy ${{ matrix.module }} \
+            --image ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ matrix.module }}:latest \
+            --region ${{ env.REGION }} \
+            --platform managed \
+            --allow-unauthenticated \
+            --env-vars-file ../../cloudrun.env
