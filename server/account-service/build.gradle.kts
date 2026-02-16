@@ -22,6 +22,7 @@ application {
 dependencies {
   implementation(libs.logback)
   implementation("org.springframework.cloud:spring-cloud-function-web")
+  implementation("org.springframework.boot:spring-boot-starter-web")
   testImplementation(libs.kotlin.testJunit)
   implementation(kotlin("reflect"))
   implementation(kotlin("stdlib"))
