@@ -76,6 +76,11 @@ jobs:
       - name: Push Docker image
         run: docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ matrix.module }}:latest
 
+      - name: Write cloudrun.env from secret
+        run: |
+          mkdir -p server
+          echo "${{ secrets.CLOUDRUN_ENV }}" > server/cloudrun.env
+
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy ${{ matrix.module }} \
