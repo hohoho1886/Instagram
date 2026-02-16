@@ -20,8 +20,8 @@ jobs:
           - module: account-service
             service_account: default
 
-          ##- module: content-service
-            ##service_account: spring-pubsub-publisher@project-426cf434-d967-43ff-a23.iam.gserviceaccount.com
+          - module: content-service
+            service_account: spring-pubsub-publisher@project-426cf434-d967-43ff-a23.iam.gserviceaccount.com
 
           - module: post-consumer
             service_account: default
@@ -31,6 +31,7 @@ jobs:
       REGION: ${{ secrets.GCP_REGION }}
       REPO_NAME: ${{ secrets.ARTIFACT_REPO }}
       PROJECT_NUMBER: ${{ secrets.PROJECT_NUMBER }}
+      WIF_PROVIDER: ${{ secrets.WIF_PROVIDER }}
 
     steps:
       - name: Checkout code
@@ -42,7 +43,7 @@ jobs:
       - name: Authenticate to Google Cloud (OIDC)
         uses: google-github-actions/auth@v1
         with:
-          workload_identity_provider: "//iam.googleapis.com/projects/1098598258581/locations/global/workloadIdentityPools/github-actions-pool/providers/gh-my-repo"
+          workload_identity_provider: ${{ env.WIF_PROVIDER }}
           service_account: "ci-cd-deployer@${{ env.PROJECT_ID }}.iam.gserviceaccount.com"
 
       - name: Configure Docker
@@ -61,7 +62,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker image
-        run: docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ matrix.module }}:latest server/${{ matrix.module }}
+        run:  docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ matrix.module }}:latest server/${{ matrix.module }}
 
       - name: Push Docker image
         run: docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ matrix.module }}:latest
