@@ -18,13 +18,8 @@ jobs:
       matrix:
         include:
           - module: account-service
-            service_account: default
-
           - module: content-service
-            service_account: ${{ secrets.CONTENT_SERVICE_SERVICE_ACCOUNT }}
-
           - module: post-consumer
-            service_account: default
 
     env:
       PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
@@ -37,6 +32,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Set service account for content-service
+        if: matrix.module == 'content-service'
+        run: echo "SERVICE_ACCOUNT=${{ secrets.CONTENT_SERVICE_ACCOUNT }}" >> $GITHUB_ENV
+
+      - name: Set default service account
+        if: matrix.module != 'content-service'
+        run: echo "SERVICE_ACCOUNT=default" >> $GITHUB_ENV
 
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
