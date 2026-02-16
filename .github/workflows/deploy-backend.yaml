@@ -40,8 +40,11 @@ jobs:
       - name: Authenticate to Google Cloud (OIDC)
         uses: google-github-actions/auth@v1
         with:
-          workload_identity_provider: "projects/${{ env.PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-actions-pool/providers/github"
+          workload_identity_provider: "//iam.googleapis.com/projects/${{ env.PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-actions-pool/providers/github"
           service_account: "ci-cd-deployer@${{ env.PROJECT_ID }}.iam.gserviceaccount.com"
+
+      - name: Configure Docker
+        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -54,14 +57,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-
-      - name: Configure Docker for Artifact Registry (Workload Identity)
-        run: |
-          ACCESS_TOKEN=$(gcloud auth print-access-token)
-
-          mkdir -p ~/.docker
-          echo "{\"credHelpers\": {\"${{ env.REGION }}-docker.pkg.dev\": \"gcloud\"}}" > ~/.docker/config.json
-
 
       - name: Build Docker image
         run: docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ matrix.module }}:latest server/${{ matrix.module }}
