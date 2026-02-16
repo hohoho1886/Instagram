@@ -42,10 +42,13 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Authenticate to Google Cloud (OIDC)
-        uses: google-github-actions/auth@v1
+        id: auth   # give it an ID so we can reference outputs
+        uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: ${{ env.WIF_PROVIDER }}
-          service_account: ${{ env.DEPLOY_SERVICE_ACCOUNT }}
+            workload_identity_provider: ${{ env.WIF_PROVIDER }}
+            service_account: ${{ env.DEPLOY_SERVICE_ACCOUNT }}
+            token_format: id_token         # needed for debug
+            id_token_audience: debug       # temporary value for debugging
 
       - name: Configure Docker
         run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
