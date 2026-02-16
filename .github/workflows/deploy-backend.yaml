@@ -14,6 +14,14 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    env:
+      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      REGION: ${{ secrets.GCP_REGION }}
+      REPO_NAME: ${{ secrets.ARTIFACT_REPO }}
+      PROJECT_NUMBER: ${{ secrets.PROJECT_NUMBER }}
+      WIF_PROVIDER: ${{ secrets.WIF_PROVIDER }}
+      DEPLOY_SERVICE_ACCOUNT: ${{ secrets.DEPLOY_SERVICE_ACCOUNT }}
+
     strategy:
       matrix:
         include:
@@ -26,13 +34,7 @@ jobs:
           - module: post-consumer
             service_account: default
 
-    env:
-      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-      REGION: ${{ secrets.GCP_REGION }}
-      REPO_NAME: ${{ secrets.ARTIFACT_REPO }}
-      PROJECT_NUMBER: ${{ secrets.PROJECT_NUMBER }}
-      WIF_PROVIDER: ${{ secrets.WIF_PROVIDER }}
-      DEPLOY_SERVICE_ACCOUNT: ${{ secrets.DEPLOY_SERVICE_ACCOUNT }}
+
 
     steps:
       - name: Checkout code
