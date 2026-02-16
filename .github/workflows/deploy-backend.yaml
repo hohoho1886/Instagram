@@ -21,7 +21,7 @@ jobs:
             service_account: default
 
           - module: content-service
-            service_account: spring-pubsub-publisher@${{ secrets.GCP_PROJECT_ID}}.iam.gserviceaccount.com
+            service_account: spring-pubsub-publisher@$project-426cf434-d967-43ff-a23.iam.gserviceaccount.com
 
           - module: post-consumer
             service_account: default
