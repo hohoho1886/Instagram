@@ -40,7 +40,7 @@ jobs:
       - name: Authenticate to Google Cloud (OIDC)
         uses: google-github-actions/auth@v1
         with:
-          workload_identity_provider: "//iam.googleapis.com/projects/${{ env.PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-actions-pool/providers/github"
+          workload_identity_provider: "//iam.googleapis.com/projects/1098598258581/locations/global/workloadIdentityPools/github-actions-pool/providers/gh-my-repo"
           service_account: "ci-cd-deployer@${{ env.PROJECT_ID }}.iam.gserviceaccount.com"
 
       - name: Configure Docker
