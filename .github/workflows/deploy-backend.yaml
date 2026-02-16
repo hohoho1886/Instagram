@@ -14,14 +14,6 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    env:
-      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-      REGION: ${{ secrets.GCP_REGION }}
-      REPO_NAME: ${{ secrets.ARTIFACT_REPO }}
-      PROJECT_NUMBER: ${{ secrets.PROJECT_NUMBER }}
-      WIF_PROVIDER: ${{ secrets.WIF_PROVIDER }}
-      DEPLOY_SERVICE_ACCOUNT: ${{ secrets.DEPLOY_SERVICE_ACCOUNT }}
-
     strategy:
       matrix:
         include:
@@ -29,12 +21,18 @@ jobs:
             service_account: default
 
           - module: content-service
-            service_account: spring-pubsub-publisher@${{ env.PROJECT_ID }}.iam.gserviceaccount.com
+            service_account: spring-pubsub-publisher@${{ secrets.GCP_PROJECT_ID}}.iam.gserviceaccount.com
 
           - module: post-consumer
             service_account: default
 
-
+    env:
+      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      REGION: ${{ secrets.GCP_REGION }}
+      REPO_NAME: ${{ secrets.ARTIFACT_REPO }}
+      PROJECT_NUMBER: ${{ secrets.PROJECT_NUMBER }}
+      WIF_PROVIDER: ${{ secrets.WIF_PROVIDER }}
+      DEPLOY_SERVICE_ACCOUNT: ${{ secrets.DEPLOY_SERVICE_ACCOUNT }}
 
     steps:
       - name: Checkout code
