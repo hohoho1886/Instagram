@@ -83,4 +83,4 @@ jobs:
             --region ${{ env.REGION }} \
             --platform managed \
             --allow-unauthenticated \
-            --env-vars-file server/cloudrun.env
+            --env-vars-file ./server/cloudrun.env
