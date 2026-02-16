@@ -21,7 +21,7 @@ jobs:
             service_account: default
 
           - module: content-service
-            service_account: spring-pubsub-publisher@project-426cf434-d967-43ff-a23.iam.gserviceaccount.com
+            service_account: spring-pubsub-publisher@${{ env.PROJECT_ID }}.iam.gserviceaccount.com
 
           - module: post-consumer
             service_account: default
@@ -32,6 +32,7 @@ jobs:
       REPO_NAME: ${{ secrets.ARTIFACT_REPO }}
       PROJECT_NUMBER: ${{ secrets.PROJECT_NUMBER }}
       WIF_PROVIDER: ${{ secrets.WIF_PROVIDER }}
+      DEPLOY_SERVICE_ACCOUNT: ${{ secrets.DEPLOY_SERVICE_ACCOUNT }}
 
     steps:
       - name: Checkout code
@@ -44,7 +45,7 @@ jobs:
         uses: google-github-actions/auth@v1
         with:
           workload_identity_provider: ${{ env.WIF_PROVIDER }}
-          service_account: "ci-cd-deployer@${{ env.PROJECT_ID }}.iam.gserviceaccount.com"
+          service_account: ${{ env.DEPLOY_SERVICE_ACCOUNT }}
 
       - name: Configure Docker
         run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
