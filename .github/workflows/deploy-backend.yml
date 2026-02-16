@@ -55,8 +55,13 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Configure Docker for Artifact Registry
-        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+      - name: Configure Docker for Artifact Registry (Workload Identity)
+        run: |
+          ACCESS_TOKEN=$(gcloud auth print-access-token)
+
+          mkdir -p ~/.docker
+          echo "{\"credHelpers\": {\"${{ env.REGION }}-docker.pkg.dev\": \"gcloud\"}}" > ~/.docker/config.json
+
 
       - name: Build Docker image
         run: docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ matrix.module }}:latest server/${{ matrix.module }}
