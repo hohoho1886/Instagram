@@ -41,12 +41,25 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
-      - name: Authenticate to Google Cloud (OIDC)
+      ##- name: Authenticate to Google Cloud (OIDC)
+        ##uses: google-github-actions/auth@v1
+        ##with:
+          ##workload_identity_provider: ${{ env.WIF_PROVIDER }}
+          ##service_account: ${{ env.DEPLOY_SERVICE_ACCOUNT }}
+          ##token_format: id_token
+
+      - name: Debug OIDC token
+        id: auth_debug
         uses: google-github-actions/auth@v1
         with:
           workload_identity_provider: ${{ env.WIF_PROVIDER }}
           service_account: ${{ env.DEPLOY_SERVICE_ACCOUNT }}
           token_format: id_token
+          id_token_audience: debug
+
+      - name: Print token
+        run: echo "${{ steps.auth_debug.outputs.id_token }}"
+
 
       - name: Configure Docker
         run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
