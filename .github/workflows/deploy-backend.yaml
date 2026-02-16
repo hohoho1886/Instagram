@@ -21,7 +21,7 @@ jobs:
             service_account: default
 
           - module: content-service
-            service_account: spring-pubsub-publisher@$project-426cf434-d967-43ff-a23.iam.gserviceaccount.com
+            service_account: ${{ secrets.CONTENT_SERVICE_SERVICE_ACCOUNT }}
 
           - module: post-consumer
             service_account: default
@@ -40,12 +40,6 @@ jobs:
 
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
-
-      ##- name: Authenticate to Google Cloud (OIDC)
-        ##uses: google-github-actions/auth@v1
-        ##with:
-          ##  workload_identity_provider: ${{ env.WIF_PROVIDER }}
-            ##service_account: ${{ env.DEPLOY_SERVICE_ACCOUNT }}
 
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
