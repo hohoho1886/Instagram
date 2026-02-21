@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6" pages="2">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6" pages="3">
   <diagram name="High Level Architecture" id="wOzVXQ8WYDYJ_06w5vYC">
-    <mxGraphModel dx="596" dy="525" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="298" dy="263" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="0" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -199,10 +199,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="UCPmu9Z0cK1uXzF4JNsH-12" edge="1" parent="1" source="7yYMzdhgMDtpJfn8Zgss-113" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="UCPmu9Z0cK1uXzF4JNsH-11" value="read">
-          <mxGeometry relative="1" x="0.2647" as="geometry">
+          <mxGeometry relative="1" x="0.4118" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
-              <mxPoint x="576" y="630" />
+              <mxPoint x="624" y="630" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -251,7 +251,7 @@
         <mxCell id="7yYMzdhgMDtpJfn8Zgss-142" edge="1" parent="1" source="7yYMzdhgMDtpJfn8Zgss-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.41;entryY=1.01;entryDx=0;entryDy=0;entryPerimeter=0;" target="7yYMzdhgMDtpJfn8Zgss-113">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="5mwdYJixzdmut7vdfBMI-2" connectable="0" parent="7yYMzdhgMDtpJfn8Zgss-142" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="activate" vertex="1">
+        <mxCell id="5mwdYJixzdmut7vdfBMI-2" connectable="0" parent="7yYMzdhgMDtpJfn8Zgss-142" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="activate via pub sub" vertex="1">
           <mxGeometry relative="1" x="-0.3075" y="-2" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
@@ -354,14 +354,15 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="UCPmu9Z0cK1uXzF4JNsH-11" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="Backfill_&lt;div&gt;follower_db&lt;/div&gt;" vertex="1">
-          <mxGeometry height="70" width="67.5" x="542.5" y="700" as="geometry" />
+          <mxGeometry height="70" width="67.5" x="590" y="720" as="geometry" />
         </mxCell>
-        <mxCell id="UCPmu9Z0cK1uXzF4JNsH-13" edge="1" parent="1" source="7yYMzdhgMDtpJfn8Zgss-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.024;entryY=0.796;entryDx=0;entryDy=0;entryPerimeter=0;" target="7yYMzdhgMDtpJfn8Zgss-113">
+        <mxCell id="UCPmu9Z0cK1uXzF4JNsH-13" edge="1" parent="1" source="7yYMzdhgMDtpJfn8Zgss-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.008;entryY=0.64;entryDx=0;entryDy=0;entryPerimeter=0;" target="7yYMzdhgMDtpJfn8Zgss-113">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="480" y="940" />
               <mxPoint x="390" y="940" />
-              <mxPoint x="390" y="627" />
+              <mxPoint x="390" y="620" />
+              <mxPoint x="409" y="620" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -385,7 +386,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="UCPmu9Z0cK1uXzF4JNsH-20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Like Consumer" vertex="1">
-          <mxGeometry height="50" width="111.5" x="1092.75" y="1300" as="geometry" />
+          <mxGeometry height="50" width="111.5" x="1150" y="1300" as="geometry" />
         </mxCell>
         <mxCell id="UCPmu9Z0cK1uXzF4JNsH-21" edge="1" parent="1" source="7yYMzdhgMDtpJfn8Zgss-88" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.006;entryY=0.554;entryDx=0;entryDy=0;entryPerimeter=0;" target="UCPmu9Z0cK1uXzF4JNsH-15">
           <mxGeometry relative="1" as="geometry">
@@ -402,11 +403,8 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="6pWr6IOzEnEQzyy2kMse-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="read replicas of follower_db" vertex="1">
+        <mxCell id="6pWr6IOzEnEQzyy2kMse-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="store active follow only" vertex="1">
           <mxGeometry height="30" width="60" x="770" y="770" as="geometry" />
-        </mxCell>
-        <mxCell id="0u9BaEjNp-_SDwCPcrST-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="hello" vertex="1">
-          <mxGeometry height="30" width="60" x="870" y="220" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
@@ -419,6 +417,14 @@
         <mxCell id="oUVbN6ZA33afyabXiK0e-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;div&gt;&lt;b&gt;Service provider:&lt;/b&gt;&lt;/div&gt;- AWS SQS (like Kafka)&lt;div&gt;- Upstash Redis&amp;nbsp;&lt;/div&gt;&lt;div&gt;- PostgresSQL&lt;/div&gt;&lt;div&gt;- MongoDB&lt;/div&gt;&lt;div&gt;- Cloudfare (CDN)&lt;/div&gt;&lt;div&gt;- AWS Lambda (to scale microservice&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- AWS gateway&lt;/span&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="160" width="150" x="140" y="60" as="geometry" />
         </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="sd7Hu_Dk5suqIC7LWFIx" name="Page-3">
+    <mxGraphModel dx="596" dy="525" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
       </root>
     </mxGraphModel>
   </diagram>
