@@ -27,10 +27,8 @@ dependencies {
     implementation(kotlin("stdlib"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation (platform("com.google.cloud:libraries-bom:26.74.0"))
-    //implementation("com.google.cloud:google-cloud-pubsub")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("redis.clients:jedis")
 }
 dependencyManagement {
     imports { mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion") }
