@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6" pages="2">
   <diagram name="High Level Architecture" id="wOzVXQ8WYDYJ_06w5vYC">
-    <mxGraphModel dx="596" dy="525" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="662" dy="583" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -80,10 +80,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="7yYMzdhgMDtpJfn8Zgss-50" parent="1" style="rounded=1;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;not have content moderator yet&lt;/span&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="7yYMzdhgMDtpJfn8Zgss-50" parent="1" style="rounded=1;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" value="" vertex="1">
           <mxGeometry height="50" width="105" x="672.5" y="305" as="geometry" />
         </mxCell>
-        <mxCell id="7yYMzdhgMDtpJfn8Zgss-51" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Kafka" vertex="1">
+        <mxCell id="7yYMzdhgMDtpJfn8Zgss-51" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Pub Sub" vertex="1">
           <mxGeometry height="30" width="60" x="695" y="315" as="geometry" />
         </mxCell>
         <mxCell id="7yYMzdhgMDtpJfn8Zgss-54" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Post Consumer Srv&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;" vertex="1">
@@ -404,9 +404,6 @@
         </mxCell>
         <mxCell id="6pWr6IOzEnEQzyy2kMse-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="read replicas of follower_db" vertex="1">
           <mxGeometry height="30" width="60" x="770" y="770" as="geometry" />
-        </mxCell>
-        <mxCell id="0u9BaEjNp-_SDwCPcrST-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="hello" vertex="1">
-          <mxGeometry height="30" width="60" x="870" y="220" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
