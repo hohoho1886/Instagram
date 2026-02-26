@@ -2,7 +2,7 @@ FROM eclipse-temurin:17-jre
 
 WORKDIR /app
 
-COPY build/libs/follow-service-1.0.0.jar app.jar
+COPY build/libs/post-materializer-1.0.0.jar app.jar
 
 EXPOSE 8080
 

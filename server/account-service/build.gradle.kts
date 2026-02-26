@@ -21,6 +21,7 @@ application {
 
 dependencies {
   implementation(libs.logback)
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
   implementation("org.springframework.cloud:spring-cloud-function-web")
   implementation("org.springframework.boot:spring-boot-starter-web")
   testImplementation(libs.kotlin.testJunit)
@@ -35,6 +36,8 @@ dependencies {
   implementation("io.jsonwebtoken:jjwt-api:0.11.5")
   runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
   runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
+  implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
+
 }
 dependencyManagement {
   imports { mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion") }

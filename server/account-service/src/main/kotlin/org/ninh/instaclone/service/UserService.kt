@@ -4,6 +4,8 @@ import jakarta.transaction.Transactional
 import org.mindrot.jbcrypt.BCrypt
 import org.ninh.instaclone.dto.AuthRequest
 import org.ninh.instaclone.dto.AuthResponse
+import org.ninh.instaclone.dto.CounterAction
+import org.ninh.instaclone.dto.FollowCounterType
 import org.ninh.instaclone.dto.RegisterRequest
 import org.ninh.instaclone.dto.RegisterResponse
 import org.ninh.instaclone.model.User
@@ -66,6 +68,14 @@ class UserService(
             ex.printStackTrace()
             return AuthResponse(error = messages.unexpectedErr())
         }
+    }
+
+    fun  updateFollowCounter(
+        username: String,
+        counterType: FollowCounterType,
+        counterAction: CounterAction
+    ){
+        userDetailsRepository.updateFollowCounter(username, counterType.name, counterAction.name)
     }
 }
 
