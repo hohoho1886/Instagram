@@ -1,10 +1,5 @@
 package org.ninh.instaclone.dto
 
-data class UploadMessage(
-    val postId: String,
-    val authorId: String,
-    val mediaUrls: String
-)
 
 data class PostDto(
     val postId: String,

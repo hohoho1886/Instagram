@@ -22,7 +22,7 @@ data class Post(
     val postId: UUID,
 
     @Column(name = "user_id", nullable = false)
-    val userId: UUID,
+    val authorId: UUID,
 
     @Column(name = "created_at", nullable = false)
     val createdAt: String = Clock.System.now().toString(),
