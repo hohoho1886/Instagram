@@ -11,8 +11,8 @@ import java.util.UUID
 
 @PrimaryKeyClass
 data class PostKey(
-    @PrimaryKeyColumn(name = "receiver_username", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
-    val receiverUsername: String,
+    @PrimaryKeyColumn(name = "receiver_userId", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
+    val receiverUserId: String,
 
     @PrimaryKeyColumn(name = "created_at", ordinal = 1, type = PrimaryKeyType.CLUSTERED, ordering = Ordering.DESCENDING)
     val createdAt: String,

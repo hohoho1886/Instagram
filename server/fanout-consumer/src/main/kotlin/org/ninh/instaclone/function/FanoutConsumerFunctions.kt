@@ -3,7 +3,7 @@ package org.ninh.instaclone.function
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.ninh.instaclone.service.FanoutConsumer
 import org.ninh.instaclone.service.PostId
-import org.ninh.instaclone.service.ReceiverUserName
+import org.ninh.instaclone.service.ReceiverUserId
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.util.Base64
@@ -11,12 +11,12 @@ import java.util.function.Function
 
 data class FanoutPullRequest(
     val posts: List<PostId>,
-    val receiverUsername: String
+    val receiverUserId: String
 )
 
 data class FanoutPushRequest(
     val postId: PostId,
-    val followersUsername: List<ReceiverUserName>
+    val followersId: List<ReceiverUserId>
 )
 
 @Configuration
@@ -44,14 +44,14 @@ class FanoutConsumerFunctions(
     @Bean
     fun consumePostPull(): Function<String, String> = Function { body ->
         consumeMessage(body, FanoutPullRequest::class.java) { dto ->
-            fanoutConsumer.savePostsPull(dto.receiverUsername, dto.posts)
+            fanoutConsumer.savePostsPull(dto.receiverUserId, dto.posts)
         }
     }
 
     @Bean
     fun consumePostPush(): Function<String, String> = Function { body ->
         consumeMessage(body, FanoutPushRequest::class.java) { dto ->
-            fanoutConsumer.savePostsPush(dto.postId, dto.followersUsername)
+            fanoutConsumer.savePostsPush(dto.postId, dto.followersId)
         }
     }
 

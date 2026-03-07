@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CompletionStage
 
 typealias PostId = String
-typealias ReceiverUserName = String
+typealias ReceiverUserId = String
 
 @Service
 class FanoutConsumer(
@@ -28,7 +28,7 @@ class FanoutConsumer(
     private fun createFuture(postsToWrite: List<Post>): CompletableFuture<Void> {
         val future: List<CompletionStage<AsyncResultSet>> = postsToWrite.map { post ->
             val boundStatement = preparedUpdate.bind(
-                post.key.receiverUsername,
+                post.key.receiverUserId,
                 post.key.createdAt,
                 post.key.postId,
                 post.mediaUrls,
@@ -45,10 +45,10 @@ class FanoutConsumer(
         return CompletableFuture.allOf(*future.map { it.toCompletableFuture() }.toTypedArray())
     }
 
-    fun asyncWritePush(postDto: PostDto, followers: List<ReceiverUserName>): CompletableFuture<Void>{
+    fun asyncWritePush(postDto: PostDto, followers: List<ReceiverUserId>): CompletableFuture<Void>{
         val postsToWrite = followers.map {
             val postKey = PostKey(
-                receiverUsername = it,
+                receiverUserId = it,
                 createdAt = postDto.createdAt,
                 postId = UUID.fromString(postDto.postId),
             )
@@ -65,7 +65,7 @@ class FanoutConsumer(
     private fun asyncWritePull(postDtos: List<PostDto>, receiverUsername: String): CompletableFuture<Void>{
         val postsToWrite = postDtos.map {
             val postKey = PostKey(
-                receiverUsername = receiverUsername,
+                receiverUserId = receiverUsername,
                 createdAt = it.createdAt,
                 postId = UUID.fromString(it.postId)
             )
@@ -83,13 +83,13 @@ class FanoutConsumer(
         return asyncWritePull(postDtos, receiverUsername)
     }
 
-    fun savePostsPush(postId: PostId, followers: List<ReceiverUserName>): CompletableFuture<Void>{
-        val postDto = getPost(listOf(UUID.fromString(postId))).get(0)
+    fun savePostsPush(postId: PostId, followers: List<ReceiverUserId>): CompletableFuture<Void>{
+        val postDto = getPost(listOf(UUID.fromString(postId)))[0]
         return asyncWritePush(postDto, followers)
     }
 
     private val preparedUpdate: PreparedStatement = session.prepare(
-        "INSERT INTO posts (receiver_username, created_at, post_id, media_urls, likes_count, comments_count) " +
+        "INSERT INTO posts (receiver_userId, created_at, post_id, media_urls, likes_count, comments_count) " +
                 "VALUES (?, ?, ?, ?, ?, ?)"
     )
 }
