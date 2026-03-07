@@ -32,6 +32,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-cassandra")
     implementation("com.datastax.astra:astra-spring-boot-3x-starter:1.2.9")
     implementation("org.apache.cassandra:java-driver-core:4.19.2")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("redis.clients:jedis")
 }
 dependencyManagement {
     imports { mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion") }
