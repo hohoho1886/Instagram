@@ -3,12 +3,12 @@ package org.ninh.instaclone.dto
 import org.ninh.instaclone.model.FollowStatus
 
 data class FollowRequest(
-    val followeeUsername: String,
-    val followerUsername: String
+    val followeeId: String,
+    val followerId: String
 )
 
 data class HandleFollowRequest(
-    val followeeUsername: String,
-    val followerUsername: String,
+    val followeeId: String,
+    val followerId: String,
     val status: FollowStatus
 )

@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional
 import org.mindrot.jbcrypt.BCrypt
 import org.ninh.instaclone.dto.AuthRequest
 import org.ninh.instaclone.dto.AuthResponse
-import org.ninh.instaclone.dto.CounterAction
+import org.ninh.instaclone.dto.FollowCounterEvent
 import org.ninh.instaclone.dto.FollowCounterType
 import org.ninh.instaclone.dto.RegisterRequest
 import org.ninh.instaclone.dto.RegisterResponse
@@ -15,6 +15,7 @@ import java.util.Optional
 import org.ninh.instaclone.message.Messages
 import org.ninh.instaclone.utils.JwtUtils
 import org.postgresql.util.PSQLException
+import java.util.UUID
 
 const val LOGS_ROUND = 12
 
@@ -71,11 +72,18 @@ class UserService(
     }
 
     fun  updateFollowCounter(
-        username: String,
-        counterType: FollowCounterType,
-        counterAction: CounterAction
+        followCounterEvent: FollowCounterEvent
     ){
-        userDetailsRepository.updateFollowCounter(username, counterType.name, counterAction.name)
+        val delta = if (followCounterEvent.type == FollowCounterType.INCREMENT) 1 else -1
+        userDetailsRepository.batchUpdateFollowCounters(
+            UUID.fromString(followCounterEvent.followeeId),
+            UUID.fromString(followCounterEvent.followerId),
+            delta
+        )
+    }
+
+    fun getFollowersCount(userId: String): Int {
+        return userDetailsRepository.getFollowersCount(UUID.fromString(userId))
     }
 }
 

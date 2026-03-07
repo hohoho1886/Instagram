@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6" pages="2">
   <diagram name="High Level Architecture" id="wOzVXQ8WYDYJ_06w5vYC">
-    <mxGraphModel dx="476" dy="553" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="0" fold="1" page="0" pageScale="1" pageWidth="1654" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="486" dy="527" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="0" fold="1" page="0" pageScale="1" pageWidth="1654" pageHeight="1169" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -338,37 +338,8 @@
         <mxCell id="UCPmu9Z0cK1uXzF4JNsH-5" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="Fanout_push&lt;div&gt;_db&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="90" width="80" x="760" y="670" as="geometry" />
         </mxCell>
-        <mxCell id="UCPmu9Z0cK1uXzF4JNsH-9" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.007;entryY=0.58;entryDx=0;entryDy=0;entryPerimeter=0;" target="7yYMzdhgMDtpJfn8Zgss-92">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="487" y="940" />
-              <mxPoint x="680" y="940" />
-              <mxPoint x="680" y="515" />
-            </Array>
-            <mxPoint x="487" y="990" as="sourcePoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="UCPmu9Z0cK1uXzF4JNsH-10" connectable="0" parent="UCPmu9Z0cK1uXzF4JNsH-9" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="update fanout_push_db" vertex="1">
-          <mxGeometry relative="1" x="-0.6681" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="UCPmu9Z0cK1uXzF4JNsH-11" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="Backfill_&lt;div&gt;follower_db&lt;/div&gt;" vertex="1">
           <mxGeometry height="70" width="67.5" x="542.5" y="700" as="geometry" />
-        </mxCell>
-        <mxCell id="UCPmu9Z0cK1uXzF4JNsH-13" edge="1" parent="1" source="7yYMzdhgMDtpJfn8Zgss-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.024;entryY=0.796;entryDx=0;entryDy=0;entryPerimeter=0;" target="7yYMzdhgMDtpJfn8Zgss-113">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="480" y="940" />
-              <mxPoint x="390" y="940" />
-              <mxPoint x="390" y="627" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="UCPmu9Z0cK1uXzF4JNsH-14" connectable="0" parent="UCPmu9Z0cK1uXzF4JNsH-13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="update&amp;nbsp; backfill db" vertex="1">
-          <mxGeometry relative="1" x="-0.5907" y="-1" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
         </mxCell>
         <mxCell id="UCPmu9Z0cK1uXzF4JNsH-15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Like Service" vertex="1">
           <mxGeometry height="60" width="120" x="700" y="1290" as="geometry" />

@@ -6,7 +6,7 @@ data class UploadRequestFromUser(
     @field:NotBlank(message = "{req.postId.notBlank}")
     val postId: String,
     @field:NotBlank(message = "{req.userId.notBlank}")
-    val userId: String,
+    val authorId: String,
     @field:NotBlank(message = "{req.mediaUrl.notBlank}")
     val mediaUrls: String
 )

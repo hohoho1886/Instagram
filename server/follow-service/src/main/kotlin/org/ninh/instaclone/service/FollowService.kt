@@ -1,11 +1,9 @@
 package org.ninh.instaclone.service
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.google.cloud.pubsub.v1.Publisher
-import com.google.protobuf.ByteString
-import com.google.pubsub.v1.ProjectTopicName
-import com.google.pubsub.v1.PubsubMessage
 import jakarta.transaction.Transactional
+import org.ninh.instaclone.client.FollowCounterEvent
+import org.ninh.instaclone.client.FollowCounterType
+import org.ninh.instaclone.client.UpdateFollowClient
 import org.ninh.instaclone.dto.FollowRequest
 import org.ninh.instaclone.dto.HandleFollowRequest
 import org.ninh.instaclone.model.Follow
@@ -14,23 +12,22 @@ import org.ninh.instaclone.model.FollowStatus
 import org.ninh.instaclone.repository.FollowRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import java.util.concurrent.TimeUnit
+import java.util.UUID
 
 @Service
 class FollowService(
-    val followRepository: FollowRepository,
+    private val followRepository: FollowRepository,
     @param:Value("\${spring.cloud.gcp.project-id}")
     private val projectId: String,
     @param:Value("\${spring.cloud.gcp.topic}")
-    private val topic: String
+    private val topic: String,
+    private val updateFollowClient: UpdateFollowClient
 ) {
-    private val objectMapper = jacksonObjectMapper()
-
     @Transactional
     fun createFollowRequest(request: FollowRequest){
         val followId = FollowId(
-            followerUsername = request.followerUsername,
-            followeeUsername = request.followeeUsername
+            followerId = UUID.fromString(request.followerId),
+            followeeId = UUID.fromString(request.followeeId)
         )
         val newFollow = Follow(id = followId)
         try {
@@ -43,8 +40,8 @@ class FollowService(
     @Transactional
     fun handleFollowRequest(followRequest: HandleFollowRequest){
         val followId = FollowId(
-            followRequest.followeeUsername,
-            followRequest.followerUsername
+            UUID.fromString(followRequest.followeeId),
+            UUID.fromString(followRequest.followerId)
         )
         try {
             val follow = followRepository.findById(followId)
@@ -52,13 +49,25 @@ class FollowService(
             when (followRequest.status) {
                 FollowStatus.ACCEPTED -> {
                     followRepository.save(follow.copy(status = FollowStatus.ACCEPTED))
-                    publishActiveFollowEvent(
-                        FollowRequest(
-                            followRequest.followeeUsername,
-                            followRequest.followerUsername)
+                    updateCounter(
+                        FollowCounterEvent(
+                            followeeId = followRequest.followeeId,
+                            followerId = followRequest.followerId,
+                            type = FollowCounterType.INCREMENT
+                        )
                     )
                 }
                 FollowStatus.REJECTED -> {
+                    followRepository.delete(follow)
+                }
+                FollowStatus.STOP -> {
+                    updateCounter(
+                        FollowCounterEvent(
+                            followeeId = followRequest.followeeId,
+                            followerId = followRequest.followerId,
+                            type = FollowCounterType.DECREMENT
+                        )
+                    )
                     followRepository.delete(follow)
                 }
                 else -> {}
@@ -68,22 +77,9 @@ class FollowService(
         }
     }
 
-    fun publishActiveFollowEvent(request: FollowRequest){
-        val messageJson = objectMapper.writeValueAsString(request)
-        val topicName = ProjectTopicName.of(projectId, topic)
-        val pubsubMessage = PubsubMessage.newBuilder()
-            .setData(ByteString.copyFromUtf8(messageJson))
-            .build()
-
-        val publisher: Publisher = Publisher.newBuilder(topicName).build()
-
-        try {
-            val messageId = publisher.publish(pubsubMessage).get()
-            println("Published message with ID: $messageId")
-        } finally {
-            publisher.shutdown()
-            publisher.awaitTermination(1, TimeUnit.MINUTES)
-        }
-
+    private fun updateCounter(update: FollowCounterEvent){
+        updateFollowClient.updateFollowCounter(
+            update
+        )
     }
 }

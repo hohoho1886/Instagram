@@ -17,8 +17,8 @@ class UploadFunction(
         if (!isValidUuid(request.postId)) {
             throw IllegalArgumentException("Invalid postId UUID")
         }
-        if (!isValidUuid(request.userId)) {
-            throw IllegalArgumentException("Invalid userId UUID")
+        if (request.authorId.isBlank()) {
+            throw IllegalArgumentException("Invalid author username")
         }
         uploadPublisher.publish(request)
         "Message published successfully"

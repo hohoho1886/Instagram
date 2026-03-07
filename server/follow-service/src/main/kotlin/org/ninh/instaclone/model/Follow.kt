@@ -6,12 +6,13 @@ import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.Table
+import java.util.UUID
 
 
 @Embeddable
 data class FollowId(
-    val followeeUsername: String,
-    val followerUsername: String
+    val followeeId: UUID,
+    val followerId: UUID
 )
 
 @Entity
@@ -26,5 +27,6 @@ data class Follow(
 enum class FollowStatus {
     ACCEPTED,
     PENDING,
-    REJECTED
+    REJECTED,
+    STOP
 }
