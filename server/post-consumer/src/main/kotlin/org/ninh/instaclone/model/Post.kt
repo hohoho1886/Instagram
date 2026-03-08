@@ -12,7 +12,7 @@ import kotlin.time.Clock
 @Table(
     name = "post_db_content",
     indexes = [
-        Index(name = "idx_user_id", columnList = "user_id"),
+        Index(name = "idx_user_id", columnList = "author_id"),
         Index(name = "idx_created_at", columnList = "created_at")
     ]
 )
