@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.spring)
     alias(libs.plugins.kotlin.serialization)
     id("io.freefair.lombok") version "8.4"
-    //id("org.jetbrains.kotlin.plugin.jpa") version "2.3.0"
     application
 }
 val springCloudVersion by extra("2025.1.1")
@@ -13,7 +12,7 @@ val springCloudVersion by extra("2025.1.1")
 group = "org.ninh.instaclone"
 version = "1.0.0"
 application {
-    mainClass.set("org.ninh.instaclone.BackfillServiceAppKt")
+    mainClass.set("org.ninh.instaclone.BroadCasterServiceAppKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
@@ -27,14 +26,11 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    //implementation("org.postgresql:postgresql")
-    //implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation (platform("com.google.cloud:libraries-bom:26.74.0"))
     implementation("com.google.cloud:google-cloud-tasks")
-    implementation("com.google.cloud:google-cloud-pubsub")
+    implementation("com.hivemq:hivemq-mqtt-client:1.2.2")
+    //implementation("com.google.cloud:google-cloud-pubsub")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("redis.clients:jedis")
 }
 dependencyManagement {
     imports { mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion") }
