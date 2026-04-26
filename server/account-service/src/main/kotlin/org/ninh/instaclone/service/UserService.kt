@@ -6,12 +6,12 @@ import org.ninh.instaclone.dto.AuthRequest
 import org.ninh.instaclone.dto.AuthResponse
 import org.ninh.instaclone.dto.FollowCounterEvent
 import org.ninh.instaclone.dto.FollowCounterType
+import org.ninh.instaclone.dto.Profile
 import org.ninh.instaclone.dto.RegisterRequest
 import org.ninh.instaclone.dto.RegisterResponse
 import org.ninh.instaclone.model.User
 import org.ninh.instaclone.repository.UserDetailsRepository
 import org.springframework.stereotype.Service
-import java.util.Optional
 import org.ninh.instaclone.message.Messages
 import org.ninh.instaclone.utils.JwtUtils
 import org.postgresql.util.PSQLException
@@ -49,13 +49,21 @@ class UserService(
 
     }
 
-    fun findByUsername(username: String): Optional<User> {
+    fun findByUsername(username: String): Profile? {
         return userDetailsRepository.findByUsername(username)
+            .map { user ->
+                Profile(
+                    user.username,
+                    user.profilePictureUrl,
+                    user.followersCount,
+                    user.followingCount
+                )
+            }.orElse(null)
     }
 
     fun loginUser(authRequest: AuthRequest): AuthResponse {
         try {
-            val userOptional = findByUsername(authRequest.username)
+            val userOptional = userDetailsRepository.findByUsername(authRequest.username)
             val user = userOptional.get()
             val passwordMatches = BCrypt.checkpw(authRequest.password, user.passwordHash)
             if (!passwordMatches) {
