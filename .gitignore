@@ -42,3 +42,4 @@ out/
 data_seed/.venv
 **/.env
 data_seed/data
+**/.csv

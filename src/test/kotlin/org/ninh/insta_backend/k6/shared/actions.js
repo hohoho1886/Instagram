@@ -16,18 +16,13 @@ const users = new SharedArray('user_ids', function () {
 });
 
 const posts = new SharedArray('post_ids', function () {
-    const fileContent = open('../../posts.csv'); // Make sure posts.csv is in the same directory
-
-    // ++ LOG 1: Verify file content was loaded
-    console.log(`[CSV CHECK] Open file succeeded. Total raw file length: ${fileContent.length} characters`);
+    const fileContent = open('../../posts.csv');
 
     const parsedData = papaparse.parse(fileContent, {
         header: true,
         skipEmptyLines: true,
     }).data;
 
-    // ++ LOG 2: Check raw parsed headers and first object
-    console.log(`[CSV CHECK] Total parsed rows: ${parsedData.length}`);
     if (parsedData.length > 0) {
         console.log(`[CSV CHECK] First row raw object: ${JSON.stringify(parsedData[0])}`);
     }
@@ -40,8 +35,6 @@ const posts = new SharedArray('post_ids', function () {
         })
         .filter(id => id.length === 36);
 
-    // ++ LOG 3: Verify clean UUID count and sample item
-    console.log(`[CSV CHECK] Total valid 36-char UUIDs extracted: ${cleanPosts.length}`);
     if (cleanPosts.length > 0) {
         console.log(`[CSV CHECK] Sample post_id[0]: "${cleanPosts[0]}" (Length: ${cleanPosts[0].length})`);
     } else {
@@ -54,15 +47,12 @@ const posts = new SharedArray('post_ids', function () {
 const BASE_URL = 'http://localhost:8080/api';
 
 export function runWorkload() {
-    //const userId = users[Math.floor(Math.random() * users.length)];
     const userId = users[(__VU - 1) % users.length];
     const roll = Math.random(); // Pick a float between 0.0 and 1.0
 
-    // ++ 80% Traffic: Get Feed
     if (roll < 0.80) {
         getFeedAction(userId);
     }
-    // ++ 15% Traffic: Like Post
 
     else if (roll < 0.95) {
         likePostAction(userId);
@@ -71,12 +61,10 @@ export function runWorkload() {
     else if (roll < 0.98) {
         commentPostAction(userId);
     }
-    // ++ 5% Traffic: Create Post
     else {
         createPostAction(userId);
     }
 
-    // Realistic think time between actions (1-3s)
     sleep(Math.random() * 2 + 1);
 }
 
