@@ -1,0 +1,13 @@
+WITH users AS (
+    SELECT array_agg(user_id) AS ids
+    FROM "user_account"
+)
+INSERT INTO "posts" (id, author_id, caption, media_url, created_at)
+SELECT
+    gen_random_uuid(),
+    ids[1 + floor(random() * array_length(ids, 1))::int],
+    'Sample caption ' || g,
+    'https://media.url/photo.jpg',
+    NOW() - random() * interval '7 days'
+FROM users,
+     generate_series(1, 500000) AS g;
