@@ -4,9 +4,12 @@ scale the system and introduce new technologies only when justified by the expec
 I do load testing at each stage to validate the system's performance and 
 identify bottlenecks before scaling further.
 
-The project is divided into three milestones:
+At the beginning, the project was supposed to be divided into three milestones:
 - Milestone 1: 100k Users (~10k DAU)
 
 - Milestone 2: 1M Users (~100k–150k DAU)
 
 - Milestone 3: 5M Users (~500k–750k DAU)
+
+When I scale to 1M users with celebrities/power users, it consumes a lot of storage on my PC.
+Thus, I stay at 100k users with celebrities/power users with viral posts.
